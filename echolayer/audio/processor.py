@@ -15,6 +15,11 @@ class LatencyMeasurement:
         self.output_timestamp: int = 0
         self.latency_ns: int = 0
         self.has_ultrasonic: bool = False
+    
+    @property
+    def latency_ms(self) -> float:
+        """Get latency in milliseconds"""
+        return self.latency_ns / 1_000_000
         
     def calculate_latency(self) -> int:
         """Calculate latency in nanoseconds"""
