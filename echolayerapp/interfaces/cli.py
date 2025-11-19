@@ -188,8 +188,21 @@ class CLI:
         
         # Print results
         print("\n=== Results ===\n")
-        print(f"Test A - Mean Latency: {results['A']['stats']['mean_latency_ms']:.2f} ms")
-        print(f"Test B - Mean Latency: {results['B']['stats']['mean_latency_ms']:.2f} ms")
+        
+        # Check for errors
+        stats_a = results['A']['stats']
+        stats_b = results['B']['stats']
+        
+        if stats_a.get('errors', 0) > 0 or stats_b.get('errors', 0) > 0:
+            print("Warning: Some measurements failed (audio device may not be available)")
+            if stats_a.get('errors', 0) > 0:
+                print(f"  Test A: {stats_a['errors']} errors out of {args.iterations} iterations")
+            if stats_b.get('errors', 0) > 0:
+                print(f"  Test B: {stats_b['errors']} errors out of {args.iterations} iterations")
+            print()
+        
+        print(f"Test A - Mean Latency: {stats_a['mean_latency_ms']:.2f} ms")
+        print(f"Test B - Mean Latency: {stats_b['mean_latency_ms']:.2f} ms")
         
         comparison = ab_test.get_comparison()
         print(f"\nDifference: {comparison['difference_ms']:.2f} ms ({comparison['percent_difference']:.1f}%)")

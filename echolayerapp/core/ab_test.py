@@ -86,7 +86,8 @@ class ABTest:
                 'mean_latency_ns': 0,
                 'min_latency_ns': 0,
                 'max_latency_ns': 0,
-                'std_latency_ns': 0
+                'std_latency_ns': 0,
+                'mean_latency_ms': 0
             }
         
         latencies = [m.get('total_latency_ns', 0) for m in measurements if 'error' not in m]
@@ -98,6 +99,7 @@ class ABTest:
                 'min_latency_ns': 0,
                 'max_latency_ns': 0,
                 'std_latency_ns': 0,
+                'mean_latency_ms': 0,
                 'errors': len(measurements)
             }
         
